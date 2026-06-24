@@ -13,7 +13,17 @@ export default function HealthCompassGauge({ bmi }: Props) {
   const clampedBMI = Math.max(minBMI, Math.min(maxBMI, bmi));
 
   // Map BMI directly to 180° semicircle
-  const percentage = (clampedBMI - minBMI) / (maxBMI - minBMI);
+  let percentage = 0;
+
+  if (clampedBMI <= 18.5) {
+    percentage = ((clampedBMI - 10) / (18.5 - 10)) * 0.25;
+  } else if (clampedBMI <= 25) {
+    percentage = 0.25 + ((clampedBMI - 18.5) / (25 - 18.5)) * 0.25;
+  } else if (clampedBMI <= 30) {
+    percentage = 0.5 + ((clampedBMI - 25) / (30 - 25)) * 0.25;
+  } else {
+    percentage = 0.75 + ((clampedBMI - 30) / (40 - 30)) * 0.25;
+  }
 
   const angle = Math.PI * (1 - percentage);
 
@@ -100,10 +110,26 @@ export default function HealthCompassGauge({ bmi }: Props) {
       </svg>
 
       <div className="gauge-labels">
-        <span className="under">Underweight<br/>10 - 18.5</span>
-        <span className="normal">Normal weight<br/>18.5 - 25</span>
-        <span className="over">Overweight<br/>25 - 30</span>
-        <span className="obese">Obese<br/>30 - 40</span>
+        <span className="under">
+          Underweight
+          <br />
+          10 - 18.5
+        </span>
+        <span className="normal">
+          Normal weight
+          <br />
+          18.5 - 25
+        </span>
+        <span className="over">
+          Overweight
+          <br />
+          25 - 30
+        </span>
+        <span className="obese">
+          Obese
+          <br />
+          30 - 40
+        </span>
       </div>
     </div>
   );
