@@ -2,7 +2,10 @@ import { useState } from "react";
 import HealthCompassGauge from "./components/HealthCompassGauge";
 
 export default function App() {
-  const [age, setAge] = useState("24");
+
+  const [ageYears, setAgeYears] = useState("24");
+  const [ageMonths, setAgeMonths] = useState("0");
+
   const [gender, setGender] = useState("Female");
 
   const [feet, setFeet] = useState("5");
@@ -18,8 +21,12 @@ export default function App() {
   const calculateBMI = () => {
     const validationErrors: string[] = [];
 
-    if (!age || Number(age) <= 0 || Number(age) > 120) {
-      validationErrors.push("Age must be between 1 and 120.");
+    if (!ageYears || Number(ageYears) <= 0 || Number(ageYears) > 120) {
+      validationErrors.push("Year must be between 1 and 120.");
+    }
+
+    if (!ageMonths || Number(ageMonths) < 0 || Number(ageMonths) > 12) {
+      validationErrors.push("Month must be between 0 and 11.");
     }
 
     if (!feet || Number(feet) < 0) {
@@ -83,20 +90,61 @@ export default function App() {
       </div>
 
       <div className="card">
+
         <div className="field">
           <label>Age</label>
 
-          <input
-            type="number"
-            min="1"
-            max="120"
-            value={age}
-            onChange={(e) => setAge(e.target.value)}
-          />
+        <div className="grid2">
+          <div className="select-wrapper">
+            <label className="small-label">Years</label>
+            <select
+              value={ageYears}
+              onChange={(e) =>
+                setAgeYears(e.target.value)
+              }
+            >
+            {Array.from(
+              { length: 121 },
+              (_, i) => i
+            ).map((year) => (
+              <option
+                key={year}
+                value={year}
+              >
+                {year}
+              </option>
+            ))}
+          </select>
+          </div>
 
-          <div className="helper">Age: 1–120 years</div>
-        </div>
-
+          <div className="select-wrapper">
+            <label className="small-label">Months</label>
+              <select
+              value={ageMonths}
+              onChange={(e) =>
+                setAgeMonths(e.target.value)
+              }
+              >
+              {Array.from(
+                { length: 12 },
+                (_, i) => i
+              ).map((month) => (
+                <option
+                  key={month}
+                  value={month}
+                >
+                  {month}
+                </option>
+              ))}
+              </select>
+          </div>
+      </div>
+    
+      <div className="helper">
+        Age: {ageYears} years {ageMonths} months
+      </div>
+      </div>
+        
         <div className="field">
           <label>Gender</label>
 
