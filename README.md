@@ -1,4 +1,7 @@
-# BMI Health Compass V2
+# BMI Health Compass
+
+BMI Health Compass to quickly check the healthy body mass index (BMI) of a person.
+
 
 Technology
 
@@ -11,14 +14,15 @@ The design can be built entirely with:
 
 1. Prerequisites
 
-Install:
+Install Node.js (LTS) & npm (comes with Node.js)
 
-Node.js (LTS)
-npm (comes with Node.js)
+* To check the Node.js version: 
 
-To check the versions:
-node -v
-npm -v
+> node -v
+
+* To check the node package manager (npm) version:
+
+> npm -v
 
 2. Install Dependencies
 
@@ -28,6 +32,6 @@ npm -v
 
 > npm run dev
 
-4. Open Browser
+4. Open Browser (Recommended Chrome for now)
 
 > Navigate to: http://localhost:5173
