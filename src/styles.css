@@ -57,6 +57,12 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(14,165,233,.15);
 }
 
+.age-display {
+  color: #64748b;
+  margin-bottom: 8px;
+  font-size: 14px;
+}
+
 .grid2 {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -192,4 +198,11 @@ select {
   background: white;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.2s ease;
+}
+
+select:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 4px rgba(59,130,246,.15);
 }

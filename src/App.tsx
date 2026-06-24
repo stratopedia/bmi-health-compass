@@ -21,6 +21,12 @@ export default function App() {
   const calculateBMI = () => {
     const validationErrors: string[] = [];
 
+    const totalMonths = Number(ageYears) * 12 + Number(ageMonths);
+
+    if (totalMonths <= 0) {
+      validationErrors.push("Age must be greater than 0.");
+    }
+
     if (!ageYears || Number(ageYears) <= 0 || Number(ageYears) > 120) {
       validationErrors.push("Year must be between 1 and 120.");
     }
@@ -234,6 +240,9 @@ export default function App() {
       {bmi !== null && (
         <>
           <div className="card result-card">
+            <div className="age-display">
+              Age: {ageYears}y {ageMonths}m
+            </div>
             <div className="bmi-number">{bmi}</div>
 
             <div
