@@ -1,45 +1,65 @@
+import React from "react";
+
 interface Props {
   bmi: number;
 }
 
 export default function HealthCompassGauge({ bmi }: Props) {
-  const clampedBMI = Math.min(Math.max(bmi, 10), 40);
+  const minBMI = 10;
+  const maxBMI = 40;
 
-  const angle = ((clampedBMI - 10) / 30) * 180 - 90;
+  const bmiStops = [10, 18.5, 25, 30, 40];
+
+  const clampedBMI = Math.max(minBMI, Math.min(maxBMI, bmi));
+
+  // Map BMI directly to 180° semicircle
+  const percentage = (clampedBMI - minBMI) / (maxBMI - minBMI);
+
+  const angle = Math.PI * (1 - percentage);
+
+  const needleLength = 95;
+
+  const x2 = needleLength * Math.cos(angle);
+
+  const y2 = -needleLength * Math.sin(angle);
 
   return (
     <div className="gauge-container">
-      <svg viewBox="0 0 300 180" width="100%" height="280">
+      <svg viewBox="0 0 300 180" width="100%" height="260">
         {/* Underweight */}
         <path
-          d="M30 150 A120 120 0 0 1 90 45"
-          stroke="#60a5fa"
+          d="M30 150 A120 120 0 0 1 98 40"
+          stroke="#3b82f6"
           strokeWidth="18"
           fill="none"
+          strokeLinecap="round"
         />
 
         {/* Normal */}
         <path
-          d="M90 45 A120 120 0 0 1 150 30"
+          d="M98 40 A120 120 0 0 1 162 30"
           stroke="#22c55e"
           strokeWidth="18"
           fill="none"
+          strokeLinecap="round"
         />
 
         {/* Overweight */}
         <path
-          d="M150 30 A120 120 0 0 1 220 45"
+          d="M162 30 A120 120 0 0 1 212 52"
           stroke="#f59e0b"
           strokeWidth="18"
           fill="none"
+          strokeLinecap="round"
         />
 
         {/* Obese */}
         <path
-          d="M220 45 A120 120 0 0 1 270 150"
+          d="M212 52 A120 120 0 0 1 270 150"
           stroke="#ef4444"
           strokeWidth="18"
           fill="none"
+          strokeLinecap="round"
         />
 
         {/* Needle */}
@@ -47,22 +67,43 @@ export default function HealthCompassGauge({ bmi }: Props) {
           <line
             x1="0"
             y1="0"
-            x2={90 * Math.cos((angle * Math.PI) / 180)}
-            y2={90 * Math.sin((angle * Math.PI) / 180)}
-            stroke="#1e293b"
+            x2={x2}
+            y2={y2}
+            stroke="#0f172a"
             strokeWidth="5"
             strokeLinecap="round"
           />
 
-          <circle r="8" fill="#1e293b" />
+          <circle cx="0" cy="0" r="10" fill="#0f172a" />
         </g>
+
+        {/* Scale Labels */}
+        <text x="18" y="165" fontSize="12">
+          
+        </text>
+
+        <text x="82" y="35" fontSize="12">
+          
+        </text>
+
+        <text x="145" y="20" fontSize="12">
+          
+        </text>
+
+        <text x="205" y="40" fontSize="12">
+          
+        </text>
+
+        <text x="270" y="165" fontSize="12">
+          
+        </text>
       </svg>
 
       <div className="gauge-labels">
-        <span>Under</span>
-        <span>Normal</span>
-        <span>Over</span>
-        <span>Obese</span>
+        <span className="under">Underweight</span>
+        <span className="normal">Normal weight</span>
+        <span className="over">Overweight</span>
+        <span className="obese">Obese</span>
       </div>
     </div>
   );
