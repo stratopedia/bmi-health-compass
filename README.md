@@ -11,14 +11,12 @@ The design can be built entirely with:
 
 1. Prerequisites
 
-Install:
-
-Node.js (LTS)
+Install Node.js (LTS)
 npm (comes with Node.js)
 
 To check the versions:
-node -v
-npm -v
+> node -v
+> npm -v
 
 2. Install Dependencies
 
